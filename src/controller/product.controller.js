@@ -159,6 +159,7 @@ const editProduct = async (req, res, next) => {
 		/** All Ok **/
 		const product = await Product.findOne({
 			uploadBy: req.userData._id,
+			_id: req.params.productId,
 		})
 			.populate({
 				path: "uploadBy",
@@ -177,7 +178,13 @@ const editProduct = async (req, res, next) => {
 
 		await product.save();
 
-		res.send({ data: product });
+		res.send({
+			data: {
+				...product._doc,
+				like: product.like.length,
+				dislike: product.dislike.length,
+			},
+		});
 	} catch (error) {
 		next(error);
 	}
@@ -297,7 +304,13 @@ const giveCommentOnProduct = async (req, res, next) => {
 			}
 		);
 
-		res.send({ data: product });
+		res.send({
+			data: {
+				...product._doc,
+				like: product.like.length,
+				dislike: product.dislike.length,
+			},
+		});
 	} catch (error) {
 		next(error);
 	}
