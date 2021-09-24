@@ -1,1 +1,1 @@
-# node_e-commerce_api_demo
+# E-Commerce API demo (Node Js)
